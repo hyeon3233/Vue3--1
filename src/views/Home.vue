@@ -8,6 +8,20 @@ const state = reactive({
 onMounted(async () => {
   state.memos = await httpService.getItems();
 });
+
+const getItems = async () => {
+  state.memos = await httpService.getItems();
+}
+
+const remove = async id => {
+  console.log('id:', id);
+  const result = await httpService.delItem(id);
+  if (result === '성공') {
+    getItems();
+  }
+};
+
+
 </script>
 <template>
   <div class="memo-list">
@@ -24,8 +38,9 @@ onMounted(async () => {
             <!-- 메모 제목 -->
             <b>{{ m.title }}</b>
             <div>
-              <span role="button" button>삭제</span
-              ><!--추후 구현-->
+              <span role="button" @click.prevent="remove(m.id)" button
+              >삭제</span>
+              <!--추후 구현-->
             </div>
           </div>
           <!-- 메모내용 -->

@@ -20,7 +20,11 @@ const state = reactive({
 });
 
 const submit = () => {
-  httpService.addItem(state.memo);
+  if (route.params.id) {
+    httpService.setItem(state.memo);
+  } else {
+    httpService.addItem(state.memo);
+  }
   alert('저장했습니다.');
   router.push({ path: '/' });
 };
@@ -30,7 +34,7 @@ onMounted(async () => {
     //값이 있다면 item 클릭, 없다면 [+추가하기] 버튼 클릭
     state.memo = await httpService.getItem(route.params.id);
     state.memo.id = parseInt(route.params.id);
-  } 
+  }
 });
 </script>
 
@@ -45,7 +49,8 @@ onMounted(async () => {
         type="text"
         id="title"
         class="form-control p-3"
-        v-model="state.memo.title"/>
+        v-model="state.memo.title"
+      />
     </div>
     <div class="mb-3">
       <label for="content" class="form-label">내용</label>
