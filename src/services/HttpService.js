@@ -7,4 +7,14 @@ export class HttpService {
       .then((res) => console.log('성공', res))
       .catch((err) => console.log('실패', err));
   }
+
+  async getItems() {
+    const result = await axios.get('http://localhost:8080/memo');
+    return result.data;
+  }
+
+  async getItem(id) {
+    const result = await axios.get(`http://localhost:8080/memo/${id}`);
+    return result.data;
+  }
 }

@@ -1,5 +1,4 @@
-{
-  "name": "vue-memo",
+{ "name": "vue-memo",
   "version": "0.0.0",
   "private": true,
   "type": "module",
